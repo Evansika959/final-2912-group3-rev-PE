@@ -212,6 +212,23 @@ add_pdn_connect \
 
 add_pdn_stripe -grid fa_pg -layer Metal4 -width 1.5 -offset 30 -spacing 0.28 -pitch 50 -starts_with GROUND -number_of_straps 3
 
+define_pdn_grid \
+    -macro \
+    -instances u_mult8_rev.u_rev.u_mult8b_rev \
+    -name mult_pg \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid mult_pg \
+    -layers "Metal4 Metal5"
+
+add_pdn_connect \
+    -grid mult_pg \
+    -layers "Metal4 Metal3"
+
+add_pdn_stripe -grid mult_pg -layer Metal4 -width 1.5 -offset 60 -spacing 0.28 -pitch 50 -starts_with GROUND -number_of_straps 1
+
 # define_pdn_grid \
 #     -macro \
 #     -instances i_chip_core.sram_0 \

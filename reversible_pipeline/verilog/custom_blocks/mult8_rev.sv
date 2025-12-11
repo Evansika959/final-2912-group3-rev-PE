@@ -1,3 +1,190 @@
+// This takes in mult8b_rev_wrapped, and achieves bidirectional control under signal 'dir'
+/*
+Wrapping Structure:
+Outter Logic <-> f_/r_ Port <-> mult8b_rev_ctrl <-> pin_* bus <-> mult8b_rev_wrapped
+- mult8b_rev_wrapped: the macro defined
+- pin_*: physical wire connected to the macro pin, logicstate bus
+- mult8b_rev_ctrl: control logic actually defined in the module
+- f_/r_ Port: What the upper level(testbench) actually see
+- Outter Logic: Testbench Written
+
+
+*/
+
+module mult8_rev (
+`ifdef USE_POWER_PINS
+    inout wire VDD,
+    inout wire VSS,
+`endif
+    input  wire        dir,      // 0: forward  (A,B -> P,b_r_b,X_c0_b)
+                                 // 1: backward (P,b_r_b,X_c0_b -> A,B)
+
+    // Forward Interface: Used when dir == 0
+    // Input: A, B
+    input  wire [7:0] f_a,
+    input  wire [7:0] f_b,
+
+    // Output: P, b_r_b (reversible carries), X_c0_b
+    output wire [15:0] f_p,
+    output wire [7:0] f_b0_r_b,
+    output wire [7:0] f_b2_r_b,
+    output wire [7:0] f_b3_r_b,
+    output wire [7:0] f_b4_r_b,
+    output wire [7:0] f_b5_r_b,
+    output wire [7:0] f_b6_r_b,
+    output wire [7:0] f_b7_r_b,
+    output wire [6:0] f_x_c0_b,
+
+    // Backward Interface: Used when dir == 1
+    // Input: P, b_r_b, X_c0_b
+    input  wire [15:0] r_p,
+    input  wire [7:0] r_b0_r_b,
+    input  wire [7:0] r_b2_r_b,
+    input  wire [7:0] r_b3_r_b,
+    input  wire [7:0] r_b4_r_b,
+    input  wire [7:0] r_b5_r_b,
+    input  wire [7:0] r_b6_r_b,
+    input  wire [7:0] r_b7_r_b,
+    input  wire [6:0] r_x_c0_b,
+
+    // Output: A, B (Original inputs recovered)
+    output wire [7:0] r_a,
+    output wire [7:0] r_b
+);
+
+    // ============================================================
+    // 1) Define the physical pin (bus) connected to the macro 
+    //    Allowing multiple logic-state driver
+    // ============================================================
+    logic [7:0] pin_a;
+    logic [7:0] pin_a_not;
+    logic [7:0] pin_b;
+    logic [7:0] pin_b_not;
+    logic [6:0] pin_x_c0_b;
+    logic [6:0] pin_x_c0_b_not;
+
+    logic [15:0] pin_p;
+    logic [15:0] pin_p_not;
+    logic [7:0] pin_b0_r_b;
+    logic [7:0] pin_b0_r_b_not;
+    logic [7:0] pin_b2_r_b;
+    logic [7:0] pin_b2_r_b_not;
+    logic [7:0] pin_b3_r_b;
+    logic [7:0] pin_b3_r_b_not;
+    logic [7:0] pin_b4_r_b;
+    logic [7:0] pin_b4_r_b_not;
+    logic [7:0] pin_b5_r_b;
+    logic [7:0] pin_b5_r_b_not;
+    logic [7:0] pin_b6_r_b;
+    logic [7:0] pin_b6_r_b_not;
+    logic [7:0] pin_b7_r_b;
+    logic [7:0] pin_b7_r_b_not;
+
+    // ============================================================
+    // 2) Instantiating the reversible multiplier core
+    // ============================================================
+    mult8b_rev_wrapped u_rev (
+    `ifdef USE_POWER_PINS
+        .VDD     (VDD),
+        .VSS     (VSS),
+    `endif
+        .a        (pin_a),
+        .a_not    (pin_a_not),
+        .b        (pin_b),
+        .b_not    (pin_b_not),
+        .x_c0_b   (pin_x_c0_b),
+        .x_c0_b_not (pin_x_c0_b_not),
+
+        .p        (pin_p),
+        .p_not    (pin_p_not),
+        .b0_r_b   (pin_b0_r_b),
+        .b0_r_b_not (pin_b0_r_b_not),
+        .b2_r_b   (pin_b2_r_b),
+        .b2_r_b_not (pin_b2_r_b_not),
+        .b3_r_b   (pin_b3_r_b),
+        .b3_r_b_not (pin_b3_r_b_not),
+        .b4_r_b   (pin_b4_r_b),
+        .b4_r_b_not (pin_b4_r_b_not),
+        .b5_r_b   (pin_b5_r_b),
+        .b5_r_b_not (pin_b5_r_b_not),
+        .b6_r_b   (pin_b6_r_b),
+        .b6_r_b_not (pin_b6_r_b_not),
+        .b7_r_b   (pin_b7_r_b),
+        .b7_r_b_not (pin_b7_r_b_not)
+    );
+
+    // ============================================================
+    // 3) Forward-Backward control drive
+    //    This is implemented using pure combinational logic
+    //
+    //   - dir = 0: Forward
+    //       Outside -> Macro
+    //         A, B Drive pin_a/pin_b (And it's corresponding _not)
+    //       Macro -> Outside
+    //         pin_p, pin_b_r_b, pin_x_c0_b for outside read
+    //
+    //   - dir = 1: Backward
+    //       Outside -> Macro
+    //         P, b_r_b, X_c0_b Drives pin_p/pin_b_r_b/pin_x_c0_b (And it's corresponding _not)
+    //       Macro -> Outside
+    //         pin_a, pin_b for outside read
+    //
+    //   The logic-state bus and a one-bit dir is to ensure that each pin has only one driver at any time
+    // ============================================================
+
+    // 3.1 Forward Drive, when Dir == 0
+    // Input: A, B
+    assign pin_a        = (dir == 1'b0) ? f_a       : 8'hzz;
+    assign pin_a_not    = (dir == 1'b0) ? ~f_a      : 8'hzz;
+
+    assign pin_b        = (dir == 1'b0) ? f_b       : 8'hzz;
+    assign pin_b_not    = (dir == 1'b0) ? ~f_b      : 8'hzz;
+
+    // Output side P, b_r_b, x_c0_b are driven by the macro, read-only
+    assign f_p       = pin_p;
+    assign f_b0_r_b  = pin_b0_r_b;
+    assign f_b2_r_b  = pin_b2_r_b;
+    assign f_b3_r_b  = pin_b3_r_b;
+    assign f_b4_r_b  = pin_b4_r_b;
+    assign f_b5_r_b  = pin_b5_r_b;
+    assign f_b6_r_b  = pin_b6_r_b;
+    assign f_b7_r_b  = pin_b7_r_b;
+    assign f_x_c0_b  = pin_x_c0_b;
+
+    // Backward Drive, when Dir == 1
+    // Input: P, b_r_b, X_c0_b
+    assign pin_p        = (dir == 1'b1) ? r_p       : 16'hzzzz;
+    assign pin_p_not    = (dir == 1'b1) ? ~r_p      : 16'hzzzz;
+
+    assign pin_b0_r_b     = (dir == 1'b1) ? r_b0_r_b     : 8'hz;
+    assign pin_b0_r_b_not = (dir == 1'b1) ? ~r_b0_r_b    : 8'hz;
+
+    assign pin_b2_r_b     = (dir == 1'b1) ? r_b2_r_b     : 8'hz;
+    assign pin_b2_r_b_not = (dir == 1'b1) ? ~r_b2_r_b    : 8'hz;
+
+    assign pin_b3_r_b     = (dir == 1'b1) ? r_b3_r_b     : 8'hz;
+    assign pin_b3_r_b_not = (dir == 1'b1) ? ~r_b3_r_b    : 8'hz;
+
+    assign pin_b4_r_b     = (dir == 1'b1) ? r_b4_r_b     : 8'hz;
+    assign pin_b4_r_b_not = (dir == 1'b1) ? ~r_b4_r_b    : 8'hz;
+
+    assign pin_b5_r_b     = (dir == 1'b1) ? r_b5_r_b     : 8'hz;
+    assign pin_b5_r_b_not = (dir == 1'b1) ? ~r_b5_r_b    : 8'hz;
+
+    assign pin_b6_r_b     = (dir == 1'b1) ? r_b6_r_b     : 8'hz;
+    assign pin_b6_r_b_not = (dir == 1'b1) ? ~r_b6_r_b    : 8'hz;
+
+    assign pin_b7_r_b     = (dir == 1'b1) ? r_b7_r_b     : 8'hz;
+    assign pin_b7_r_b_not = (dir == 1'b1) ? ~r_b7_r_b    : 8'hz;
+
+    assign pin_x_c0_b     = (dir == 1'b1) ? r_x_c0_b     : 7'hz;
+    assign pin_x_c0_b_not = (dir == 1'b1) ? ~r_x_c0_b    : 7'hz;
+
+    assign r_a     = pin_a;
+    assign r_b     = pin_b;
+
+endmodule
+
 `default_nettype none
 
 // (* keep_hierarchy = "yes" *)
@@ -18,34 +205,83 @@ module mult8b_rev_wrapped (
     inout wire [15:0] p_not,
 
     // Reversible carry outputs - b(n)_r(m)_b signals
-    output wire [7:0] b0_r_b,
-    output wire [7:0] b0_r_b_not,
-    output wire [7:0] b2_r_b,
-    output wire [7:0] b2_r_b_not,
-    output wire [7:0] b3_r_b,
-    output wire [7:0] b3_r_b_not,
-    output wire [7:0] b4_r_b,
-    output wire [7:0] b4_r_b_not,
-    output wire [7:0] b5_r_b,
-    output wire [7:0] b5_r_b_not,
-    output wire [7:0] b6_r_b,
-    output wire [7:0] b6_r_b_not,
-    output wire [7:0] b7_r_b,
-    output wire [7:0] b7_r_b_not,
+    inout wire [7:0] b0_r_b,
+    inout wire [7:0] b0_r_b_not,
+    inout wire [7:0] b2_r_b,
+    inout wire [7:0] b2_r_b_not,
+    inout wire [7:0] b3_r_b,
+    inout wire [7:0] b3_r_b_not,
+    inout wire [7:0] b4_r_b,
+    inout wire [7:0] b4_r_b_not,
+    inout wire [7:0] b5_r_b,
+    inout wire [7:0] b5_r_b_not,
+    inout wire [7:0] b6_r_b,
+    inout wire [7:0] b6_r_b_not,
+    inout wire [7:0] b7_r_b,
+    inout wire [7:0] b7_r_b_not,
 
     // x(i)_c0_b output signals
-    output wire [6:0] x_c0_b,
-    output wire [6:0] x_c0_b_not,
+    inout wire [6:0] x_c0_b,
+    inout wire [6:0] x_c0_b_not
 
     // Additional signals (intermediates - to be filled later)
     // Placeholder for other signals that may need to be exposed
 );
 
+    // Local tie nets keep the structural macro happy during simulation
+    wire [7:0] tie_lo_carry_b0;
+    wire [7:0] tie_hi_carry_b0;
+    wire [7:0] tie_lo_carry_b1;
+    wire [7:0] tie_hi_carry_b1;
+    wire [7:0] tie_lo_carry_b2;
+    wire [7:0] tie_hi_carry_b2;
+    wire [7:0] tie_lo_carry_b3;
+    wire [7:0] tie_hi_carry_b3;
+    wire [7:0] tie_lo_carry_b4;
+    wire [7:0] tie_hi_carry_b4;
+    wire [7:0] tie_lo_carry_b5;
+    wire [7:0] tie_hi_carry_b5;
+    wire [7:0] tie_lo_carry_b6;
+    wire [7:0] tie_hi_carry_b6;
+    wire [7:0] tie_lo_carry_b7;
+    wire [7:0] tie_hi_carry_b7;
+
+    wire [6:0] tie_lo_x_b0_f;
+    wire [6:0] tie_hi_x_b0_f;
+    wire [6:0] tie_lo_x_c0_f;
+    wire [6:0] tie_hi_x_c0_f;
+    wire       tie_lo_x0_a7_f;
+    wire       tie_hi_x0_a7_f;
+
+    assign tie_lo_carry_b0 = '0;
+    assign tie_hi_carry_b0 = '1;
+    assign tie_lo_carry_b1 = '0;
+    assign tie_hi_carry_b1 = '1;
+    assign tie_lo_carry_b2 = '0;
+    assign tie_hi_carry_b2 = '1;
+    assign tie_lo_carry_b3 = '0;
+    assign tie_hi_carry_b3 = '1;
+    assign tie_lo_carry_b4 = '0;
+    assign tie_hi_carry_b4 = '1;
+    assign tie_lo_carry_b5 = '0;
+    assign tie_hi_carry_b5 = '1;
+    assign tie_lo_carry_b6 = '0;
+    assign tie_hi_carry_b6 = '1;
+    assign tie_lo_carry_b7 = '0;
+    assign tie_hi_carry_b7 = '1;
+
+    assign tie_lo_x_b0_f = '0;
+    assign tie_hi_x_b0_f = '1;
+    assign tie_lo_x_c0_f = '0;
+    assign tie_hi_x_c0_f = '1;
+    assign tie_lo_x0_a7_f = 1'b0;
+    assign tie_hi_x0_a7_f = 1'b1;
+
     (* keep *)
-    8b_mult u_8b_mult (
+    mult_8b u_mult8b_rev (
         `ifdef USE_POWER_PINS
-        .vdd         (VDD),
-        .vss         (VSS),
+        .VDD         (VDD),
+        .VSS         (VSS),
         `endif
         
         // a inputs
@@ -390,178 +626,178 @@ module mult8b_rev_wrapped (
         .b7_q7       (b[7]),
         .b7_q7_not   (b_not[7]),
         
-        // Tie carry signals to 0 and inverted carry to 1
-        .b0_c0       (1'b0),
-        .b0_c0_not   (1'b1),
-        .b0_c1       (1'b0),
-        .b0_c1_not   (1'b1),
-        .b0_c2       (1'b0),
-        .b0_c2_not   (1'b1),
-        .b0_c3       (1'b0),
-        .b0_c3_not   (1'b1),
-        .b0_c4       (1'b0),
-        .b0_c4_not   (1'b1),
-        .b0_c5       (1'b0),
-        .b0_c5_not   (1'b1),
-        .b0_c6       (1'b0),
-        .b0_c6_not   (1'b1),
-        .b0_c7       (1'b0),
-        .b0_c7_not   (1'b1),
+    // Tie carry signals to 0 and inverted carry to 1
+    .b0_c0       (tie_lo_carry_b0[0]),
+    .b0_c0_not   (tie_hi_carry_b0[0]),
+    .b0_c1       (tie_lo_carry_b0[1]),
+    .b0_c1_not   (tie_hi_carry_b0[1]),
+    .b0_c2       (tie_lo_carry_b0[2]),
+    .b0_c2_not   (tie_hi_carry_b0[2]),
+    .b0_c3       (tie_lo_carry_b0[3]),
+    .b0_c3_not   (tie_hi_carry_b0[3]),
+    .b0_c4       (tie_lo_carry_b0[4]),
+    .b0_c4_not   (tie_hi_carry_b0[4]),
+    .b0_c5       (tie_lo_carry_b0[5]),
+    .b0_c5_not   (tie_hi_carry_b0[5]),
+    .b0_c6       (tie_lo_carry_b0[6]),
+    .b0_c6_not   (tie_hi_carry_b0[6]),
+    .b0_c7       (tie_lo_carry_b0[7]),
+    .b0_c7_not   (tie_hi_carry_b0[7]),
 
-        .b1_c0       (1'b0),
-        .b1_c0_not   (1'b1),
-        .b1_c1       (1'b0),
-        .b1_c1_not   (1'b1),
-        .b1_c2       (1'b0),
-        .b1_c2_not   (1'b1),
-        .b1_c3       (1'b0),
-        .b1_c3_not   (1'b1),
-        .b1_c4       (1'b0),
-        .b1_c4_not   (1'b1),
-        .b1_c5       (1'b0),
-        .b1_c5_not   (1'b1),
-        .b1_c6       (1'b0),
-        .b1_c6_not   (1'b1),
-        .b1_c7       (1'b0),
-        .b1_c7_not   (1'b1),
+    .b1_c0       (tie_lo_carry_b1[0]),
+    .b1_c0_not   (tie_hi_carry_b1[0]),
+    .b1_c1       (tie_lo_carry_b1[1]),
+    .b1_c1_not   (tie_hi_carry_b1[1]),
+    .b1_c2       (tie_lo_carry_b1[2]),
+    .b1_c2_not   (tie_hi_carry_b1[2]),
+    .b1_c3       (tie_lo_carry_b1[3]),
+    .b1_c3_not   (tie_hi_carry_b1[3]),
+    .b1_c4       (tie_lo_carry_b1[4]),
+    .b1_c4_not   (tie_hi_carry_b1[4]),
+    .b1_c5       (tie_lo_carry_b1[5]),
+    .b1_c5_not   (tie_hi_carry_b1[5]),
+    .b1_c6       (tie_lo_carry_b1[6]),
+    .b1_c6_not   (tie_hi_carry_b1[6]),
+    .b1_c7       (tie_lo_carry_b1[7]),
+    .b1_c7_not   (tie_hi_carry_b1[7]),
 
-        .b2_c0       (1'b0),
-        .b2_c0_not   (1'b1),
-        .b2_c1       (1'b0),
-        .b2_c1_not   (1'b1),
-        .b2_c2       (1'b0),
-        .b2_c2_not   (1'b1),
-        .b2_c3       (1'b0),
-        .b2_c3_not   (1'b1),
-        .b2_c4       (1'b0),
-        .b2_c4_not   (1'b1),
-        .b2_c5       (1'b0),
-        .b2_c5_not   (1'b1),
-        .b2_c6       (1'b0),
-        .b2_c6_not   (1'b1),
-        .b2_c7       (1'b0),
-        .b2_c7_not   (1'b1),
+    .b2_c0       (tie_lo_carry_b2[0]),
+    .b2_c0_not   (tie_hi_carry_b2[0]),
+    .b2_c1       (tie_lo_carry_b2[1]),
+    .b2_c1_not   (tie_hi_carry_b2[1]),
+    .b2_c2       (tie_lo_carry_b2[2]),
+    .b2_c2_not   (tie_hi_carry_b2[2]),
+    .b2_c3       (tie_lo_carry_b2[3]),
+    .b2_c3_not   (tie_hi_carry_b2[3]),
+    .b2_c4       (tie_lo_carry_b2[4]),
+    .b2_c4_not   (tie_hi_carry_b2[4]),
+    .b2_c5       (tie_lo_carry_b2[5]),
+    .b2_c5_not   (tie_hi_carry_b2[5]),
+    .b2_c6       (tie_lo_carry_b2[6]),
+    .b2_c6_not   (tie_hi_carry_b2[6]),
+    .b2_c7       (tie_lo_carry_b2[7]),
+    .b2_c7_not   (tie_hi_carry_b2[7]),
 
-        .b3_c0       (1'b0),
-        .b3_c0_not   (1'b1),
-        .b3_c1       (1'b0),
-        .b3_c1_not   (1'b1),
-        .b3_c2       (1'b0),
-        .b3_c2_not   (1'b1),
-        .b3_c3       (1'b0),
-        .b3_c3_not   (1'b1),
-        .b3_c4       (1'b0),
-        .b3_c4_not   (1'b1),
-        .b3_c5       (1'b0),
-        .b3_c5_not   (1'b1),
-        .b3_c6       (1'b0),
-        .b3_c6_not   (1'b1),
-        .b3_c7       (1'b0),
-        .b3_c7_not   (1'b1),
+    .b3_c0       (tie_lo_carry_b3[0]),
+    .b3_c0_not   (tie_hi_carry_b3[0]),
+    .b3_c1       (tie_lo_carry_b3[1]),
+    .b3_c1_not   (tie_hi_carry_b3[1]),
+    .b3_c2       (tie_lo_carry_b3[2]),
+    .b3_c2_not   (tie_hi_carry_b3[2]),
+    .b3_c3       (tie_lo_carry_b3[3]),
+    .b3_c3_not   (tie_hi_carry_b3[3]),
+    .b3_c4       (tie_lo_carry_b3[4]),
+    .b3_c4_not   (tie_hi_carry_b3[4]),
+    .b3_c5       (tie_lo_carry_b3[5]),
+    .b3_c5_not   (tie_hi_carry_b3[5]),
+    .b3_c6       (tie_lo_carry_b3[6]),
+    .b3_c6_not   (tie_hi_carry_b3[6]),
+    .b3_c7       (tie_lo_carry_b3[7]),
+    .b3_c7_not   (tie_hi_carry_b3[7]),
 
-        .b4_c0       (1'b0),
-        .b4_c0_not   (1'b1),
-        .b4_c1       (1'b0),
-        .b4_c1_not   (1'b1),
-        .b4_c2       (1'b0),
-        .b4_c2_not   (1'b1),
-        .b4_c3       (1'b0),
-        .b4_c3_not   (1'b1),
-        .b4_c4       (1'b0),
-        .b4_c4_not   (1'b1),
-        .b4_c5       (1'b0),
-        .b4_c5_not   (1'b1),
-        .b4_c6       (1'b0),
-        .b4_c6_not   (1'b1),
-        .b4_c7       (1'b0),
-        .b4_c7_not   (1'b1),
+    .b4_c0       (tie_lo_carry_b4[0]),
+    .b4_c0_not   (tie_hi_carry_b4[0]),
+    .b4_c1       (tie_lo_carry_b4[1]),
+    .b4_c1_not   (tie_hi_carry_b4[1]),
+    .b4_c2       (tie_lo_carry_b4[2]),
+    .b4_c2_not   (tie_hi_carry_b4[2]),
+    .b4_c3       (tie_lo_carry_b4[3]),
+    .b4_c3_not   (tie_hi_carry_b4[3]),
+    .b4_c4       (tie_lo_carry_b4[4]),
+    .b4_c4_not   (tie_hi_carry_b4[4]),
+    .b4_c5       (tie_lo_carry_b4[5]),
+    .b4_c5_not   (tie_hi_carry_b4[5]),
+    .b4_c6       (tie_lo_carry_b4[6]),
+    .b4_c6_not   (tie_hi_carry_b4[6]),
+    .b4_c7       (tie_lo_carry_b4[7]),
+    .b4_c7_not   (tie_hi_carry_b4[7]),
 
-        .b5_c0       (1'b0),
-        .b5_c0_not   (1'b1),
-        .b5_c1       (1'b0),
-        .b5_c1_not   (1'b1),
-        .b5_c2       (1'b0),
-        .b5_c2_not   (1'b1),
-        .b5_c3       (1'b0),
-        .b5_c3_not   (1'b1),
-        .b5_c4       (1'b0),
-        .b5_c4_not   (1'b1),
-        .b5_c5       (1'b0),
-        .b5_c5_not   (1'b1),
-        .b5_c6       (1'b0),
-        .b5_c6_not   (1'b1),
-        .b5_c7       (1'b0),
-        .b5_c7_not   (1'b1),
+    .b5_c0       (tie_lo_carry_b5[0]),
+    .b5_c0_not   (tie_hi_carry_b5[0]),
+    .b5_c1       (tie_lo_carry_b5[1]),
+    .b5_c1_not   (tie_hi_carry_b5[1]),
+    .b5_c2       (tie_lo_carry_b5[2]),
+    .b5_c2_not   (tie_hi_carry_b5[2]),
+    .b5_c3       (tie_lo_carry_b5[3]),
+    .b5_c3_not   (tie_hi_carry_b5[3]),
+    .b5_c4       (tie_lo_carry_b5[4]),
+    .b5_c4_not   (tie_hi_carry_b5[4]),
+    .b5_c5       (tie_lo_carry_b5[5]),
+    .b5_c5_not   (tie_hi_carry_b5[5]),
+    .b5_c6       (tie_lo_carry_b5[6]),
+    .b5_c6_not   (tie_hi_carry_b5[6]),
+    .b5_c7       (tie_lo_carry_b5[7]),
+    .b5_c7_not   (tie_hi_carry_b5[7]),
 
-        .b6_c0       (1'b0),
-        .b6_c0_not   (1'b1),
-        .b6_c1       (1'b0),
-        .b6_c1_not   (1'b1),
-        .b6_c2       (1'b0),
-        .b6_c2_not   (1'b1),
-        .b6_c3       (1'b0),
-        .b6_c3_not   (1'b1),
-        .b6_c4       (1'b0),
-        .b6_c4_not   (1'b1),
-        .b6_c5       (1'b0),
-        .b6_c5_not   (1'b1),
-        .b6_c6       (1'b0),
-        .b6_c6_not   (1'b1),
-        .b6_c7       (1'b0),
-        .b6_c7_not   (1'b1),
+    .b6_c0       (tie_lo_carry_b6[0]),
+    .b6_c0_not   (tie_hi_carry_b6[0]),
+    .b6_c1       (tie_lo_carry_b6[1]),
+    .b6_c1_not   (tie_hi_carry_b6[1]),
+    .b6_c2       (tie_lo_carry_b6[2]),
+    .b6_c2_not   (tie_hi_carry_b6[2]),
+    .b6_c3       (tie_lo_carry_b6[3]),
+    .b6_c3_not   (tie_hi_carry_b6[3]),
+    .b6_c4       (tie_lo_carry_b6[4]),
+    .b6_c4_not   (tie_hi_carry_b6[4]),
+    .b6_c5       (tie_lo_carry_b6[5]),
+    .b6_c5_not   (tie_hi_carry_b6[5]),
+    .b6_c6       (tie_lo_carry_b6[6]),
+    .b6_c6_not   (tie_hi_carry_b6[6]),
+    .b6_c7       (tie_lo_carry_b6[7]),
+    .b6_c7_not   (tie_hi_carry_b6[7]),
 
-        .b7_c0       (1'b0),
-        .b7_c0_not   (1'b1),
-        .b7_c1       (1'b0),
-        .b7_c1_not   (1'b1),
-        .b7_c2       (1'b0),
-        .b7_c2_not   (1'b1),
-        .b7_c3       (1'b0),
-        .b7_c3_not   (1'b1),
-        .b7_c4       (1'b0),
-        .b7_c4_not   (1'b1),
-        .b7_c5       (1'b0),
-        .b7_c5_not   (1'b1),
-        .b7_c6       (1'b0),
-        .b7_c6_not   (1'b1),
-        .b7_c7       (1'b0),
-        .b7_c7_not   (1'b1),
+    .b7_c0       (tie_lo_carry_b7[0]),
+    .b7_c0_not   (tie_hi_carry_b7[0]),
+    .b7_c1       (tie_lo_carry_b7[1]),
+    .b7_c1_not   (tie_hi_carry_b7[1]),
+    .b7_c2       (tie_lo_carry_b7[2]),
+    .b7_c2_not   (tie_hi_carry_b7[2]),
+    .b7_c3       (tie_lo_carry_b7[3]),
+    .b7_c3_not   (tie_hi_carry_b7[3]),
+    .b7_c4       (tie_lo_carry_b7[4]),
+    .b7_c4_not   (tie_hi_carry_b7[4]),
+    .b7_c5       (tie_lo_carry_b7[5]),
+    .b7_c5_not   (tie_hi_carry_b7[5]),
+    .b7_c6       (tie_lo_carry_b7[6]),
+    .b7_c6_not   (tie_hi_carry_b7[6]),
+    .b7_c7       (tie_lo_carry_b7[7]),
+    .b7_c7_not   (tie_hi_carry_b7[7]),
         
-        // Set x(i)_b0_f to 0 and x(i)_b0_f_not to 1
-        .x0_b0_f     (1'b0),
-        .x0_b0_f_not (1'b1),
-        .x1_b0_f     (1'b0),
-        .x1_b0_f_not (1'b1),
-        .x2_b0_f     (1'b0),
-        .x2_b0_f_not (1'b1),
-        .x3_b0_f     (1'b0),
-        .x3_b0_f_not (1'b1),
-        .x4_b0_f     (1'b0),
-        .x4_b0_f_not (1'b1),
-        .x5_b0_f     (1'b0),
-        .x5_b0_f_not (1'b1),
-        .x6_b0_f     (1'b0),
-        .x6_b0_f_not (1'b1),
+    // Set x(i)_b0_f to 0 and x(i)_b0_f_not to 1
+    .x0_b0_f     (tie_lo_x_b0_f[0]),
+    .x0_b0_f_not (tie_hi_x_b0_f[0]),
+    .x1_b0_f     (tie_lo_x_b0_f[1]),
+    .x1_b0_f_not (tie_hi_x_b0_f[1]),
+    .x2_b0_f     (tie_lo_x_b0_f[2]),
+    .x2_b0_f_not (tie_hi_x_b0_f[2]),
+    .x3_b0_f     (tie_lo_x_b0_f[3]),
+    .x3_b0_f_not (tie_hi_x_b0_f[3]),
+    .x4_b0_f     (tie_lo_x_b0_f[4]),
+    .x4_b0_f_not (tie_hi_x_b0_f[4]),
+    .x5_b0_f     (tie_lo_x_b0_f[5]),
+    .x5_b0_f_not (tie_hi_x_b0_f[5]),
+    .x6_b0_f     (tie_lo_x_b0_f[6]),
+    .x6_b0_f_not (tie_hi_x_b0_f[6]),
         
-        // Set x(i)_c0_f to 0 and x(i)_c0_f_not to 1
-        .x0_c0_f     (1'b0),
-        .x0_c0_f_not (1'b1),
-        .x1_c0_f     (1'b0),
-        .x1_c0_f_not (1'b1),
-        .x2_c0_f     (1'b0),
-        .x2_c0_f_not (1'b1),
-        .x3_c0_f     (1'b0),
-        .x3_c0_f_not (1'b1),
-        .x4_c0_f     (1'b0),
-        .x4_c0_f_not (1'b1),
-        .x5_c0_f     (1'b0),
-        .x5_c0_f_not (1'b1),
-        .x6_c0_f     (1'b0),
-        .x6_c0_f_not (1'b1),
+    // Set x(i)_c0_f to 0 and x(i)_c0_f_not to 1
+    .x0_c0_f     (tie_lo_x_c0_f[0]),
+    .x0_c0_f_not (tie_hi_x_c0_f[0]),
+    .x1_c0_f     (tie_lo_x_c0_f[1]),
+    .x1_c0_f_not (tie_hi_x_c0_f[1]),
+    .x2_c0_f     (tie_lo_x_c0_f[2]),
+    .x2_c0_f_not (tie_hi_x_c0_f[2]),
+    .x3_c0_f     (tie_lo_x_c0_f[3]),
+    .x3_c0_f_not (tie_hi_x_c0_f[3]),
+    .x4_c0_f     (tie_lo_x_c0_f[4]),
+    .x4_c0_f_not (tie_hi_x_c0_f[4]),
+    .x5_c0_f     (tie_lo_x_c0_f[5]),
+    .x5_c0_f_not (tie_hi_x_c0_f[5]),
+    .x6_c0_f     (tie_lo_x_c0_f[6]),
+    .x6_c0_f_not (tie_hi_x_c0_f[6]),
         
-        // Set x0_a7_f to 0 and x0_a7_f_not to 1
-        .x0_a7_f     (1'b0),
-        .x0_a7_f_not (1'b1),
+    // Set x0_a7_f to 0 and x0_a7_f_not to 1
+    .x0_a7_f     (tie_lo_x0_a7_f),
+    .x0_a7_f_not (tie_hi_x0_a7_f),
         
         // Connect b0_r(m)_b signals to output
         .b0_r1_b     (b0_r_b[0]),
@@ -707,3 +943,4 @@ module mult8b_rev_wrapped (
     );
 
 endmodule
+

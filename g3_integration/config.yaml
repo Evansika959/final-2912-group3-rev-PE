@@ -1,12 +1,18 @@
+meta:
+  version: 3
+  flow: Classic
+  # substituting_steps:
+
 DESIGN_NAME: reversible_pe
 
 VERILOG_FILES:
   - dir::../reversible_pipeline/verilog/modules/reversible_pe.sv
-  - dir::../reversible_pipeline/verilog/modules/mult8_rev.sv
+  # - dir::../reversible_pipeline/verilog/modules/mult8_rev.sv
   - dir::../reversible_pipeline/verilog/modules/pe_buffer.sv
   - dir::../reversible_pipeline/verilog/modules/spi_slave.sv
   - dir::../custom_ip/16b_FA/16b_FA.vh
   - dir::../reversible_pipeline/verilog/custom_blocks/fa16_rev.sv
+  - dir::../reversible_pipeline/verilog/custom_blocks/mult8_rev.sv
 
 VERILOG_DEFINES:
   - USE_POWER_PINS
@@ -28,6 +34,7 @@ PRIMARY_GDSII_STREAMOUT_TOOL: klayout
 
 PDN_MACRO_CONNECTIONS: 
 - "u_fa16_rev.u_rev.u_fa16b_rev VDD VSS VDD VSS"
+- "u_mult8_rev.u_rev.u_mult8b_rev VDD VSS VDD VSS"
 # "VERILOG_POWER_DEFINE": USE_POWER_PINS
 # ERROR_ON_PDN_VIOLATIONS: false
 
@@ -72,8 +79,32 @@ MACROS:
         - dir::../custom_ip/dummy.lib
     instances:
       u_fa16_rev.u_rev.u_fa16b_rev:
-        location: [1300, 200]
+        location: [1700, 200]
         orientation: N
+
+  mult_8b:
+    gds:
+      - dir::../custom_ip/8b_mult/mult_8b.gds
+    lef:
+      - dir::../custom_ip/8b_mult/mult_8b.lef
+    vh:
+      - dir::../custom_ip/8b_mult/mult_8b.vh
+    lib:
+      "*_tt_025C_3v30":
+        - dir::../custom_ip/dummy.lib
+    instances:
+      u_mult8_rev.u_rev.u_mult8b_rev:
+        location: [100, 200]
+        orientation: N
+
+# add PDN OBS for mult8b_rev
+# PDN_OBSTRUCTIONS:
+#   - [Metal3, 100, 200, 1559.74, 427.445]
+#   - [Metal4, 100, 200, 1559.74, 427.445]
+
+
+FP_PDN_HORIZONTAL_HALO: 10
+FP_PDN_VERTICAL_HALO: 10
 
 # Pin metal layer
 FP_IO_HLAYER: "Metal3"
