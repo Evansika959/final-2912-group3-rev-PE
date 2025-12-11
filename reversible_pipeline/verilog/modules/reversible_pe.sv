@@ -256,7 +256,7 @@ assign mult_f_b = pe_reg0[15:8];
 // assign mult_f_a_b = mult_f_extra[7:0];
 assign nxt_pe_reg1 = { mult_f_extra, mult_f_p };
 
-mult8_rev u_mult8_rev (
+mult8_rev u8 (
     `ifdef USE_POWER_PINS
         .VDD     (VDD),
         .VSS     (VSS),

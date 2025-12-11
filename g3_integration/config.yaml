@@ -34,7 +34,7 @@ PRIMARY_GDSII_STREAMOUT_TOOL: klayout
 
 PDN_MACRO_CONNECTIONS: 
 - "u_fa16_rev.u_rev.u_fa16b_rev VDD VSS VDD VSS"
-- "u_mult8_rev.u_rev.u_mult8b_rev VDD VSS VDD VSS"
+- "u8.u_rev.u_mult8b_rev VDD VSS VDD VSS"
 # "VERILOG_POWER_DEFINE": USE_POWER_PINS
 # ERROR_ON_PDN_VIOLATIONS: false
 
@@ -93,7 +93,7 @@ MACROS:
       "*_tt_025C_3v30":
         - dir::../custom_ip/dummy.lib
     instances:
-      u_mult8_rev.u_rev.u_mult8b_rev:
+      u8.u_rev.u_mult8b_rev:
         location: [100, 200]
         orientation: N
 
@@ -119,6 +119,6 @@ CORE_AREA: [20, 20, 2000, 1000]
 
 DRT_OPT_ITERS: 10
 
-PDN_HPITCH: 45
+PDN_HPITCH: 75
 
 PDN_CFG: dir::pdn_cfg.tcl
