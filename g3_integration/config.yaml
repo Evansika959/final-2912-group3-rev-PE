@@ -69,7 +69,7 @@ MACROS:
       - dir::../custom_ip/16b_FA/fa_16b.vh
     lib:
       "*_tt_025C_3v30":
-        - dir::../custom_ip/fa16b_rev/fa16b_rev.lib
+        - dir::../custom_ip/dummy.lib
     instances:
       u_fa16_rev.u_rev.u_fa16b_rev:
         location: [1300, 200]
