@@ -72,13 +72,15 @@ logic mult_dir, fa_dir;
 // reg1 is triggered by clk_b
 logic [15:0] output_reg, nxt_output_reg;
 logic [`DATA_WIDTH-1:0]        pe_reg0, nxt_pe_reg0;
-logic [23:0]        pe_reg1, nxt_pe_reg1;
+logic [78:0]        pe_reg1, nxt_pe_reg1;
 logic [31:0]        pe_reg2, nxt_pe_reg2;
 logic               pe_vld_stem, pe_vld0, pe_vld1, pe_vld2;
 
-logic [7:0]  mult_f_a, mult_f_b, mult_f_a_b;
+logic [7:0]  mult_f_a, mult_f_b;
+// logic [7:0]  mult_f_a_b;
 logic [15:0] mult_f_p;
 
+logic [62:0] mult_f_extra;
 
 logic [15:0] mult_rev_ab;
 
@@ -251,30 +253,31 @@ fa16_rev u_fa16_rev (
 assign mult_f_a = pe_reg0[7:0];
 assign mult_f_b = pe_reg0[15:8];
 
-assign nxt_pe_reg1 = { mult_f_a_b, mult_f_p };
+// assign mult_f_a_b = mult_f_extra[7:0];
+assign nxt_pe_reg1 = { mult_f_extra, mult_f_p };
 
 mult8_rev u_mult8_rev (
     .dir     (mult_dir), // forward on clk, backward on clk_b
     .f_a     (mult_f_a),
     .f_b     (mult_f_b),
     .f_p     (mult_f_p),
-    .f_b0_r_b(mult_f_a_b),
-    .f_b2_r_b(),
-    .f_b3_r_b(),
-    .f_b4_r_b(),
-    .f_b5_r_b(),
-    .f_b6_r_b(),
-    .f_b7_r_b(),
-    .f_x_c0_b(),
+    .f_b0_r_b(mult_f_extra[7:0]),
+    .f_b2_r_b(mult_f_extra[15:8]),
+    .f_b3_r_b(mult_f_extra[23:16]),
+    .f_b4_r_b(mult_f_extra[31:24]),
+    .f_b5_r_b(mult_f_extra[39:32]),
+    .f_b6_r_b(mult_f_extra[47:40]),
+    .f_b7_r_b(mult_f_extra[55:48]),
+    .f_x_c0_b(mult_f_extra[62:56]),
     .r_p     (pe_reg1[15:0]),
     .r_b0_r_b(pe_reg1[23:16]),
-    .r_b2_r_b(8'b0),
-    .r_b3_r_b(8'b0),
-    .r_b4_r_b(8'b0),
-    .r_b5_r_b(8'b0),
-    .r_b6_r_b(8'b0),
-    .r_b7_r_b(8'b0),
-    .r_x_c0_b(7'b0),
+    .r_b2_r_b(pe_reg1[31:24]),
+    .r_b3_r_b(pe_reg1[39:32]),
+    .r_b4_r_b(pe_reg1[47:40]),
+    .r_b5_r_b(pe_reg1[55:48]),
+    .r_b6_r_b(pe_reg1[63:56]),
+    .r_b7_r_b(pe_reg1[71:64]),
+    .r_x_c0_b(pe_reg1[78:72]),
     .r_a     (mult_rev_ab[7:0]),
     .r_b     (mult_rev_ab[15:8])
 );

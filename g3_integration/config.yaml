@@ -86,6 +86,8 @@ FP_SIZING: absolute
 DIE_AREA: [0, 0, 2020, 1020]
 CORE_AREA: [20, 20, 2000, 1000]
 
-DRT_OPT_ITERS: 50
+DRT_OPT_ITERS: 10
+
+PDN_HPITCH: 45
 
 PDN_CFG: dir::pdn_cfg.tcl
