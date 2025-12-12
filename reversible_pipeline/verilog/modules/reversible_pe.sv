@@ -226,6 +226,7 @@ assign mult_dir = (current_state == WORK) ? clk_b : 0;    // forward on clk, bac
 assign add_f_a = pe_reg1[15:0];
 assign add_f_b = output_reg;
 
+(* keep *)
 fa16_rev u_fa16_rev (
     `ifdef USE_POWER_PINS
         .VDD     (VDD),

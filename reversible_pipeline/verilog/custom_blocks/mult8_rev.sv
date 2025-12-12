@@ -134,12 +134,11 @@ module mult8_rev (
 
     // 3.1 Forward Drive, when Dir == 0
     // Input: A, B
-    assign pin_a        = (dir == 1'b0) ? f_a       : 8'hzz;
-    assign pin_a_not    = (dir == 1'b0) ? ~f_a      : 8'hzz;
+    assign pin_a        = (dir == 1'b0) ? f_a       : 8'h0;
+    assign pin_a_not    = (dir == 1'b0) ? ~f_a      : 8'h0;
 
-    assign pin_b        = (dir == 1'b0) ? f_b       : 8'hzz;
-    assign pin_b_not    = (dir == 1'b0) ? ~f_b      : 8'hzz;
-
+    assign pin_b        = (dir == 1'b0) ? f_b       : 8'h0;
+    assign pin_b_not    = (dir == 1'b0) ? ~f_b      : 8'h0;
     // Output side P, b_r_b, x_c0_b are driven by the macro, read-only
     assign f_p       = pin_p;
     assign f_b0_r_b  = pin_b0_r_b;
@@ -153,32 +152,32 @@ module mult8_rev (
 
     // Backward Drive, when Dir == 1
     // Input: P, b_r_b, X_c0_b
-    assign pin_p        = (dir == 1'b1) ? r_p       : 16'hzzzz;
-    assign pin_p_not    = (dir == 1'b1) ? ~r_p      : 16'hzzzz;
+    assign pin_p        = (dir == 1'b1) ? r_p       : 16'h0;
+    assign pin_p_not    = (dir == 1'b1) ? ~r_p      : 16'h0;
 
-    assign pin_b0_r_b     = (dir == 1'b1) ? r_b0_r_b     : 8'hz;
-    assign pin_b0_r_b_not = (dir == 1'b1) ? ~r_b0_r_b    : 8'hz;
+    assign pin_b0_r_b     = (dir == 1'b1) ? r_b0_r_b     : 8'h0;
+    assign pin_b0_r_b_not = (dir == 1'b1) ? ~r_b0_r_b    : 8'h0;
 
-    assign pin_b2_r_b     = (dir == 1'b1) ? r_b2_r_b     : 8'hz;
-    assign pin_b2_r_b_not = (dir == 1'b1) ? ~r_b2_r_b    : 8'hz;
+    assign pin_b2_r_b     = (dir == 1'b1) ? r_b2_r_b     : 8'h0;
+    assign pin_b2_r_b_not = (dir == 1'b1) ? ~r_b2_r_b    : 8'h0;
 
-    assign pin_b3_r_b     = (dir == 1'b1) ? r_b3_r_b     : 8'hz;
-    assign pin_b3_r_b_not = (dir == 1'b1) ? ~r_b3_r_b    : 8'hz;
+    assign pin_b3_r_b     = (dir == 1'b1) ? r_b3_r_b     : 8'h0;
+    assign pin_b3_r_b_not = (dir == 1'b1) ? ~r_b3_r_b    : 8'h0;
 
-    assign pin_b4_r_b     = (dir == 1'b1) ? r_b4_r_b     : 8'hz;
-    assign pin_b4_r_b_not = (dir == 1'b1) ? ~r_b4_r_b    : 8'hz;
+    assign pin_b4_r_b     = (dir == 1'b1) ? r_b4_r_b     : 8'h0;
+    assign pin_b4_r_b_not = (dir == 1'b1) ? ~r_b4_r_b    : 8'h0;
 
-    assign pin_b5_r_b     = (dir == 1'b1) ? r_b5_r_b     : 8'hz;
-    assign pin_b5_r_b_not = (dir == 1'b1) ? ~r_b5_r_b    : 8'hz;
+    assign pin_b5_r_b     = (dir == 1'b1) ? r_b5_r_b     : 8'h0;
+    assign pin_b5_r_b_not = (dir == 1'b1) ? ~r_b5_r_b    : 8'h0;
 
-    assign pin_b6_r_b     = (dir == 1'b1) ? r_b6_r_b     : 8'hz;
-    assign pin_b6_r_b_not = (dir == 1'b1) ? ~r_b6_r_b    : 8'hz;
+    assign pin_b6_r_b     = (dir == 1'b1) ? r_b6_r_b     : 8'h0;
+    assign pin_b6_r_b_not = (dir == 1'b1) ? ~r_b6_r_b    : 8'h0;
 
-    assign pin_b7_r_b     = (dir == 1'b1) ? r_b7_r_b     : 8'hz;
-    assign pin_b7_r_b_not = (dir == 1'b1) ? ~r_b7_r_b    : 8'hz;
+    assign pin_b7_r_b     = (dir == 1'b1) ? r_b7_r_b     : 8'h0;
+    assign pin_b7_r_b_not = (dir == 1'b1) ? ~r_b7_r_b    : 8'h0;
 
-    assign pin_x_c0_b     = (dir == 1'b1) ? r_x_c0_b     : 7'hz;
-    assign pin_x_c0_b_not = (dir == 1'b1) ? ~r_x_c0_b    : 7'hz;
+    assign pin_x_c0_b     = (dir == 1'b1) ? r_x_c0_b     : 7'h0;
+    assign pin_x_c0_b_not = (dir == 1'b1) ? ~r_x_c0_b    : 7'h0;
 
     assign r_a     = pin_a;
     assign r_b     = pin_b;
