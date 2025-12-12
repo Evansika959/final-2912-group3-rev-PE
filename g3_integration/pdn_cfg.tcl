@@ -228,6 +228,8 @@ add_pdn_connect \
     -layers "Metal4 Metal3"
 
 add_pdn_stripe -grid mult_pg -layer Metal4 -width 1.5 -offset 60 -spacing 0.28 -pitch 50 -starts_with GROUND -number_of_straps 1
+add_pdn_stripe -grid mult_pg -layer Metal4 -width 1.5 -offset 140 -spacing 0.28 -pitch 195 -starts_with GROUND -number_of_straps 7
+add_pdn_stripe -grid mult_pg -layer Metal4 -width 1.5 -offset 208 -spacing 0.28 -pitch 195 -starts_with GROUND -number_of_straps 7
 
 # define_pdn_grid \
 #     -macro \
