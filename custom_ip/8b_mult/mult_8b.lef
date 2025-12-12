@@ -3666,6 +3666,13 @@ MACRO mult_8b
         RECT 101.030 24.320 101.435 55.300 ;
     END
   END b0_q7
+  PIN b0_p3_not
+    ANTENNAGATEAREA 3.763200 ;
+    PORT
+      LAYER Metal4 ;
+        RECT 95.060 133.385 95.465 216.585 ;
+    END
+  END b0_p3_not
   PIN b7_q6_not
     ANTENNAGATEAREA 3.763200 ;
     PORT
@@ -4462,10 +4469,6 @@ MACRO mult_8b
     PORT
       LAYER Metal4 ;
         RECT 104.380 193.935 104.805 215.830 ;
-    END
-    PORT
-      LAYER Metal4 ;
-        RECT 95.060 133.385 95.465 216.585 ;
     END
   END b0_p4_not
   PIN b0_q4_not
