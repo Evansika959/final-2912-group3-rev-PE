@@ -99,8 +99,7 @@ MACROS:
 
 # add PDN OBS for mult8b_rev
 # PDN_OBSTRUCTIONS:
-#   - [Metal3, 100, 200, 1559.74, 427.445]
-#   - [Metal4, 100, 200, 1559.74, 427.445]
+#   - [Metal4, 150, 100, 1459.74, 400]
 
 
 FP_PDN_HORIZONTAL_HALO: 10

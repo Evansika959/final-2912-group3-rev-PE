@@ -5,14 +5,13 @@
 Wrapping Structure:
 Outter Logic <-> f_/r_ Port <-> fa16_rev_ctrl <-> pin_* bus <-> fa16_rev_wrapped
 - fa16_rev_wrapped: the macro defined
-- pin_*: physical wire connected to the macro pin, tristate bus
+- pin_*: physical wire connected to the macro pin, logicstate bus
 - fa16_rev_ctrl: control logic actually defined in the module
 - f_/r_ Port: What the upper level(testbench) actually see
 - Outter Logic: Testbench Written
 
 
 */
-
 module fa16_rev (
 `ifdef USE_POWER_PINS
     inout wire VDD,
@@ -50,29 +49,30 @@ module fa16_rev (
 
     // ============================================================
     // 1) Define the physical pin (bus) connected to the macro 
-    //    Allowing multiple tri-state driver
+    //    Allowing multiple logic-state driver
     // ============================================================
-    tri [15:0] pin_a;
-    tri [15:0] pin_a_not;
-    tri [15:0] pin_b;
-    tri [15:0] pin_b_not;
-    tri        pin_c0_f;
-    tri        pin_c0_f_not;
-    tri        pin_z;
-    tri        pin_z_not;
+    logic [15:0] pin_a;
+    logic [15:0] pin_a_not;
+    logic [15:0] pin_b;
+    logic [15:0] pin_b_not;
+    logic        pin_c0_f;
+    logic        pin_c0_f_not;
+    logic        pin_z;
+    logic        pin_z_not;
 
-    tri [15:0] pin_s;
-    tri [15:0] pin_s_not;
-    tri [15:0] pin_a_b;
-    tri [15:0] pin_a_not_b;
-    tri        pin_c0_b;
-    tri        pin_c0_b_not;
-    tri        pin_c15;
-    tri        pin_c15_not;
+    logic [15:0] pin_s;
+    logic [15:0] pin_s_not;
+    logic [15:0] pin_a_b;
+    logic [15:0] pin_a_not_b;
+    logic        pin_c0_b;
+    logic        pin_c0_b_not;
+    logic        pin_c15;
+    logic        pin_c15_not;
 
     // ============================================================
     // 2) Instantiating the reversible adder core
     // ============================================================
+    (* keep *)
     fa16_rev_wrapped u_rev (
     `ifdef USE_POWER_PINS
         .VDD     (VDD),
@@ -113,23 +113,22 @@ module fa16_rev (
     //       Macro -> Ourside
     //         pin_a, pin_b, pin_c0_f, pin_z for outside read
     //
-    //   The tri-state bus and a one-bit dir is to ensure that each pin has only one driver at any time
+    //   The logic-state bus and a one-bit dir is to ensure that each pin has only one driver at any time
     // ============================================================
 
     // 3.1 Forward Drive, when Dir == 0
     // Input: A, B, C0_f, z
-    assign pin_a        = (dir == 1'b0) ? f_a       : 16'hzzzz;
-    assign pin_a_not    = (dir == 1'b0) ? ~f_a      : 16'hzzzz;
+    assign pin_a        = (dir == 1'b0) ? f_a       : 16'h0;
+    assign pin_a_not    = (dir == 1'b0) ? ~f_a      : 16'h0;
 
-    assign pin_b        = (dir == 1'b0) ? f_b       : 16'hzzzz;
-    assign pin_b_not    = (dir == 1'b0) ? ~f_b      : 16'hzzzz;
+    assign pin_b        = (dir == 1'b0) ? f_b       : 16'h0;
+    assign pin_b_not    = (dir == 1'b0) ? ~f_b      : 16'h0;
 
-    assign pin_c0_f     = (dir == 1'b0) ? f_c0_f    : 1'bz;
-    assign pin_c0_f_not = (dir == 1'b0) ? ~f_c0_f   : 1'bz;
+    assign pin_c0_f     = (dir == 1'b0) ? f_c0_f    : 1'b0;
+    assign pin_c0_f_not = (dir == 1'b0) ? ~f_c0_f   : 1'b0;
 
-    assign pin_z        = (dir == 1'b0) ? f_z       : 1'bz;
-    assign pin_z_not    = (dir == 1'b0) ? ~f_z      : 1'bz;
-
+    assign pin_z        = (dir == 1'b0) ? f_z       : 1'b0;
+    assign pin_z_not    = (dir == 1'b0) ? ~f_z      : 1'b0;
     // Output side S, A_B, C0_b, C15 is drived by the macro, it is read-only
     assign f_s    = pin_s;      
     assign f_a_b  = pin_a_b;
@@ -138,18 +137,17 @@ module fa16_rev (
 
     // Backward Drive, when Dir == 1
     // Input: S, A_B, C0_b, C15
-    assign pin_s        = (dir == 1'b1) ? r_s       : 16'hzzzz;
-    assign pin_s_not    = (dir == 1'b1) ? ~r_s      : 16'hzzzz;
+    assign pin_s        = (dir == 1'b1) ? r_s       : 16'h0;
+    assign pin_s_not    = (dir == 1'b1) ? ~r_s      : 16'h0;
 
-    assign pin_a_b      = (dir == 1'b1) ? r_a_b     : 16'hzzzz;
-    assign pin_a_not_b  = (dir == 1'b1) ? ~r_a_b    : 16'hzzzz;
+    assign pin_a_b      = (dir == 1'b1) ? r_a_b     : 16'h0;
+    assign pin_a_not_b  = (dir == 1'b1) ? ~r_a_b    : 16'h0;
 
-    assign pin_c0_b     = (dir == 1'b1) ? r_c0_b    : 1'bz;
-    assign pin_c0_b_not = (dir == 1'b1) ? ~r_c0_b   : 1'bz;
+    assign pin_c0_b     = (dir == 1'b1) ? r_c0_b    : 1'b0;
+    assign pin_c0_b_not = (dir == 1'b1) ? ~r_c0_b   : 1'b0;
 
-    assign pin_c15      = (dir == 1'b1) ? r_c15     : 1'bz;
-    assign pin_c15_not  = (dir == 1'b1) ? ~r_c15    : 1'bz;
-
+    assign pin_c15      = (dir == 1'b1) ? r_c15     : 1'b0;
+    assign pin_c15_not  = (dir == 1'b1) ? ~r_c15    : 1'b0;
     assign r_a     = pin_a;       
     assign r_b     = pin_b;
     assign r_c0_f  = pin_c0_f;
