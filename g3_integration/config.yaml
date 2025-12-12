@@ -79,7 +79,7 @@ MACROS:
         - dir::../custom_ip/dummy.lib
     instances:
       u_fa16_rev.u_rev.u_fa16b_rev:
-        location: [1700, 200]
+        location: [1700, 80]
         orientation: N
 
   mult_8b:
@@ -94,7 +94,7 @@ MACROS:
         - dir::../custom_ip/dummy.lib
     instances:
       u8.u_rev.u_mult8b_rev:
-        location: [100, 200]
+        location: [100, 80]
         orientation: N
 
 # add PDN OBS for mult8b_rev
@@ -114,8 +114,8 @@ FP_IO_VEXTEND: 0
 
 # Area
 FP_SIZING: absolute
-DIE_AREA: [0, 0, 2020, 1020]
-CORE_AREA: [20, 20, 2000, 1000]
+DIE_AREA: [0, 0, 2020, 520]
+CORE_AREA: [20, 20, 2000, 500]
 
 DRT_OPT_ITERS: 10
 
