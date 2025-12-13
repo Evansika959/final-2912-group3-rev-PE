@@ -942,7 +942,9 @@ module mult8b_rev_wrapped (
     .x5_c0_b     (x_c0_b[5]),
     .x5_c0_b_not (x_c0_b_not[5]),
     .x6_c0_b     (x_c0_b[6]),
-    .x6_c0_b_not (x_c0_b_not[6])
+    .x6_c0_b_not (x_c0_b_not[6]),
+    .x7_c0_b     (x_c0_b[7]),
+    .x7_c0_b_not (x_c0_b_not[7])
     );
 
 endmodule

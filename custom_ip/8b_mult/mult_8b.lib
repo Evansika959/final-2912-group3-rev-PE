@@ -3272,6 +3272,30 @@ library (mult_8b_dummy) {
       max_transition : 1.0;
     }
 
+    pin (x7_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x7_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x7_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x7_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
     pin (x6_c0_f) {
       direction : inout;
       capacitance : 0.001;
