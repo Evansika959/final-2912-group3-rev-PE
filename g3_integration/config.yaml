@@ -76,7 +76,7 @@ MACROS:
       - dir::../custom_ip/16b_FA/fa_16b.vh
     lib:
       "*_tt_025C_3v30":
-        - dir::../custom_ip/dummy.lib
+        - dir::../custom_ip/16b_FA/fa_16b.lib
     instances:
       u_fa16_rev.u_rev.u_fa16b_rev:
         location: [1700, 80]
@@ -91,7 +91,7 @@ MACROS:
       - dir::../custom_ip/8b_mult/mult_8b.vh
     lib:
       "*_tt_025C_3v30":
-        - dir::../custom_ip/dummy.lib
+        - dir::../custom_ip/8b_mult/mult_8b.lib
     instances:
       u8.u_rev.u_mult8b_rev:
         location: [100, 80]
@@ -102,15 +102,14 @@ MACROS:
 #   - [Metal4, 150, 100, 1459.74, 400]
 
 ROUTING_OBSTRUCTIONS:
-  - [Metal4, 180, 115, 220, 285]
-  - [Metal4, 337, 110, 414, 285]
-  - [Metal4, 535, 110, 614, 285]
-  - [Metal4, 730, 110, 814, 285]
-  - [Metal4, 920, 110, 1014, 285]
-  - [Metal4, 1120, 110, 1214, 285]
-  - [Metal4, 1320, 110, 1414, 285]
-
-
+  # - [Metal4, 130, 110, 138, 295]
+  - [Metal4, 180, 115, 220, 295]
+  - [Metal4, 337, 110, 414, 295]
+  - [Metal4, 535, 110, 614, 295]
+  - [Metal4, 730, 110, 814, 295]
+  - [Metal4, 920, 110, 1014, 295]
+  - [Metal4, 1120, 110, 1214, 295]
+  - [Metal4, 1320, 110, 1414, 295]
 
 FP_PDN_HORIZONTAL_HALO: 10
 FP_PDN_VERTICAL_HALO: 10
@@ -131,3 +130,6 @@ DRT_OPT_ITERS: 10
 PDN_HPITCH: 75
 
 PDN_CFG: dir::pdn_cfg.tcl
+
+SIGNOFF_SDC_FILE: dir::constraints.signoff.sdc
+PNR_SDC_FILE: dir::constraints.sdc

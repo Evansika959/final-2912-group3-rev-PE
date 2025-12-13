@@ -1,0 +1,3660 @@
+library (mult_8b_dummy) {
+  delay_model : table_lookup;
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  current_unit : "1mA";
+  capacitive_load_unit (1, pf);
+  nominal_voltage : 1.8;
+  nominal_temperature : 25.0;
+  nominal_process : 1.0;
+  slew_lower_threshold_pct_rise : 20.0;
+  slew_upper_threshold_pct_rise : 80.0;
+  slew_lower_threshold_pct_fall : 20.0;
+  slew_upper_threshold_pct_fall : 80.0;
+  input_threshold_pct_rise : 50.0;
+  input_threshold_pct_fall : 50.0;
+  output_threshold_pct_rise : 50.0;
+  output_threshold_pct_fall : 50.0;
+
+  cell (mult_8b) {
+    area : 0.0;
+    cell_leakage_power : 0.0;
+    dont_use : true;
+    dont_touch : true;
+
+    pg_pin (VDD) {
+      voltage_name : "VDD";
+      pg_type : primary_power;
+    }
+
+    pg_pin (VSS) {
+      voltage_name : "VSS";
+      pg_type : primary_ground;
+    }
+
+    pin (a0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (a7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b1_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b0_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_a7_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_a7_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_a7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x0_a7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x1_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x2_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x3_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x4_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x5_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p0) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p0_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c1) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c1_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_q7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_c0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_c0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_b0_f) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_b0_f_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_c0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (x6_c0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r0_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r0_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r1_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r1_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r2_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r2_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r3_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r3_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r4_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r4_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r5_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r5_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r6_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r6_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r7_b) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_r7_b_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p8) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p8_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p9) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p9_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p10) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p10_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p11) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p11_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p12) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p12_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p13) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p13_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p14) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p14_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p15) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (p15_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_c2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b2) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b3) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b4) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b5) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b6) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7_not) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+    pin (b7) {
+      direction : inout;
+      capacitance : 0.001;
+      max_transition : 1.0;
+    }
+
+  }
+}

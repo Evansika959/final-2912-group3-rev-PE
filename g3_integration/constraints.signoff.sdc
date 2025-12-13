@@ -1,6 +1,6 @@
-create_clock -name clk -period 50.0 [get_ports clk]
-create_clock -name clk_b -period 50.0 [get_ports clk_b]
-create_clock -name spi_clk -period 150.0 [get_ports spi_clk]
+create_clock -name clk -period 60.0 [get_ports clk]
+create_clock -name clk_b -period 60.0 [get_ports clk_b]
+create_clock -name spi_clk -period 160.0 [get_ports spi_clk]
 set_false_path -from [get_ports rst_n]
 
 # Set Clock Uncertainties, Latency and Transition
