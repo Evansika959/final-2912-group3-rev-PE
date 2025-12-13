@@ -33,7 +33,7 @@ module mult8_rev (
     output wire [7:0] f_b5_r_b,
     output wire [7:0] f_b6_r_b,
     output wire [7:0] f_b7_r_b,
-    output wire [6:0] f_x_c0_b,
+    output wire [7:0] f_x_c0_b,
 
     // Backward Interface: Used when dir == 1
     // Input: P, b_r_b, X_c0_b
@@ -45,7 +45,7 @@ module mult8_rev (
     input  wire [7:0] r_b5_r_b,
     input  wire [7:0] r_b6_r_b,
     input  wire [7:0] r_b7_r_b,
-    input  wire [6:0] r_x_c0_b,
+    input  wire [7:0] r_x_c0_b,
 
     // Output: A, B (Original inputs recovered)
     output wire [7:0] r_a,
@@ -60,8 +60,8 @@ module mult8_rev (
     logic [7:0] pin_a_not;
     logic [7:0] pin_b;
     logic [7:0] pin_b_not;
-    logic [6:0] pin_x_c0_b;
-    logic [6:0] pin_x_c0_b_not;
+    logic [7:0] pin_x_c0_b;
+    logic [7:0] pin_x_c0_b_not;
 
     logic [15:0] pin_p;
     logic [15:0] pin_p_not;
@@ -176,8 +176,8 @@ module mult8_rev (
     assign pin_b7_r_b     = (dir == 1'b1) ? r_b7_r_b     : 8'h0;
     assign pin_b7_r_b_not = (dir == 1'b1) ? ~r_b7_r_b    : 8'h0;
 
-    assign pin_x_c0_b     = (dir == 1'b1) ? r_x_c0_b     : 7'h0;
-    assign pin_x_c0_b_not = (dir == 1'b1) ? ~r_x_c0_b    : 7'h0;
+    assign pin_x_c0_b     = (dir == 1'b1) ? r_x_c0_b     : 8'h0;
+    assign pin_x_c0_b_not = (dir == 1'b1) ? ~r_x_c0_b    : 8'h0;
 
     assign r_a     = pin_a;
     assign r_b     = pin_b;
@@ -220,8 +220,8 @@ module mult8b_rev_wrapped (
     inout wire [7:0] b7_r_b_not,
 
     // x(i)_c0_b output signals
-    inout wire [6:0] x_c0_b,
-    inout wire [6:0] x_c0_b_not
+    inout wire [7:0] x_c0_b,
+    inout wire [7:0] x_c0_b_not
 
     // Additional signals (intermediates - to be filled later)
     // Placeholder for other signals that may need to be exposed
@@ -247,8 +247,8 @@ module mult8b_rev_wrapped (
 
     wire [6:0] tie_lo_x_b0_f;
     wire [6:0] tie_hi_x_b0_f;
-    wire [6:0] tie_lo_x_c0_f;
-    wire [6:0] tie_hi_x_c0_f;
+    wire [7:0] tie_lo_x_c0_f;
+    wire [7:0] tie_hi_x_c0_f;
     wire       tie_lo_x0_a7_f;
     wire       tie_hi_x0_a7_f;
 
@@ -793,152 +793,156 @@ module mult8b_rev_wrapped (
     .x5_c0_f_not (tie_hi_x_c0_f[5]),
     .x6_c0_f     (tie_lo_x_c0_f[6]),
     .x6_c0_f_not (tie_hi_x_c0_f[6]),
+    .x7_c0_f     (tie_lo_x_c0_f[7]),
+    .x7_c0_f_not (tie_hi_x_c0_f[7]),
         
     // Set x0_a7_f to 0 and x0_a7_f_not to 1
     .x0_a7_f     (tie_lo_x0_a7_f),
     .x0_a7_f_not (tie_hi_x0_a7_f),
         
-        // Connect b0_r(m)_b signals to output
-        .b0_r1_b     (b0_r_b[0]),
-        .b0_r1_b_not (b0_r_b_not[0]),
-        .b0_r2_b     (b0_r_b[1]),
-        .b0_r2_b_not (b0_r_b_not[1]),
-        .b0_r3_b     (b0_r_b[2]),
-        .b0_r3_b_not (b0_r_b_not[2]),
-        .b0_r4_b     (b0_r_b[3]),
-        .b0_r4_b_not (b0_r_b_not[3]),
-        .b0_r5_b     (b0_r_b[4]),
-        .b0_r5_b_not (b0_r_b_not[4]),
-        .b0_r6_b     (b0_r_b[5]),
-        .b0_r6_b_not (b0_r_b_not[5]),
-        .b0_r7_b     (b0_r_b[6]),
-        .b0_r7_b_not (b0_r_b_not[6]),
-        .x0_a7_b     (b0_r_b[7]),
-        .x0_a7_b_not (b0_r_b_not[7]),
-        
-        // Connect b2_r(m)_b signals to output
-        .b2_r0_b     (b2_r_b[0]),
-        .b2_r0_b_not (b2_r_b_not[0]),
-        .b2_r1_b     (b2_r_b[1]),
-        .b2_r1_b_not (b2_r_b_not[1]),
-        .b2_r2_b     (b2_r_b[2]),
-        .b2_r2_b_not (b2_r_b_not[2]),
-        .b2_r3_b     (b2_r_b[3]),
-        .b2_r3_b_not (b2_r_b_not[3]),
-        .b2_r4_b     (b2_r_b[4]),
-        .b2_r4_b_not (b2_r_b_not[4]),
-        .b2_r5_b     (b2_r_b[5]),
-        .b2_r5_b_not (b2_r_b_not[5]),
-        .b2_r6_b     (b2_r_b[6]),
-        .b2_r6_b_not (b2_r_b_not[6]),
-        .b2_r7_b     (b2_r_b[7]),
-        .b2_r7_b_not (b2_r_b_not[7]),
-        
-        // Connect b3_r(m)_b signals to output
-        .b3_r0_b     (b3_r_b[0]),
-        .b3_r0_b_not (b3_r_b_not[0]),
-        .b3_r1_b     (b3_r_b[1]),
-        .b3_r1_b_not (b3_r_b_not[1]),
-        .b3_r2_b     (b3_r_b[2]),
-        .b3_r2_b_not (b3_r_b_not[2]),
-        .b3_r3_b     (b3_r_b[3]),
-        .b3_r3_b_not (b3_r_b_not[3]),
-        .b3_r4_b     (b3_r_b[4]),
-        .b3_r4_b_not (b3_r_b_not[4]),
-        .b3_r5_b     (b3_r_b[5]),
-        .b3_r5_b_not (b3_r_b_not[5]),
-        .b3_r6_b     (b3_r_b[6]),
-        .b3_r6_b_not (b3_r_b_not[6]),
-        .b3_r7_b     (b3_r_b[7]),
-        .b3_r7_b_not (b3_r_b_not[7]),
-        
-        // Connect b4_r(m)_b signals to output
-        .b4_r0_b     (b4_r_b[0]),
-        .b4_r0_b_not (b4_r_b_not[0]),
-        .b4_r1_b     (b4_r_b[1]),
-        .b4_r1_b_not (b4_r_b_not[1]),
-        .b4_r2_b     (b4_r_b[2]),
-        .b4_r2_b_not (b4_r_b_not[2]),
-        .b4_r3_b     (b4_r_b[3]),
-        .b4_r3_b_not (b4_r_b_not[3]),
-        .b4_r4_b     (b4_r_b[4]),
-        .b4_r4_b_not (b4_r_b_not[4]),
-        .b4_r5_b     (b4_r_b[5]),
-        .b4_r5_b_not (b4_r_b_not[5]),
-        .b4_r6_b     (b4_r_b[6]),
-        .b4_r6_b_not (b4_r_b_not[6]),
-        .b4_r7_b     (b4_r_b[7]),
-        .b4_r7_b_not (b4_r_b_not[7]),
-        
-        // Connect b5_r(m)_b signals to output
-        .b5_r0_b     (b5_r_b[0]),
-        .b5_r0_b_not (b5_r_b_not[0]),
-        .b5_r1_b     (b5_r_b[1]),
-        .b5_r1_b_not (b5_r_b_not[1]),
-        .b5_r2_b     (b5_r_b[2]),
-        .b5_r2_b_not (b5_r_b_not[2]),
-        .b5_r3_b     (b5_r_b[3]),
-        .b5_r3_b_not (b5_r_b_not[3]),
-        .b5_r4_b     (b5_r_b[4]),
-        .b5_r4_b_not (b5_r_b_not[4]),
-        .b5_r5_b     (b5_r_b[5]),
-        .b5_r5_b_not (b5_r_b_not[5]),
-        .b5_r6_b     (b5_r_b[6]),
-        .b5_r6_b_not (b5_r_b_not[6]),
-        .b5_r7_b     (b5_r_b[7]),
-        .b5_r7_b_not (b5_r_b_not[7]),
-        
-        // Connect b6_r(m)_b signals to output
-        .b6_r0_b     (b6_r_b[0]),
-        .b6_r0_b_not (b6_r_b_not[0]),
-        .b6_r1_b     (b6_r_b[1]),
-        .b6_r1_b_not (b6_r_b_not[1]),
-        .b6_r2_b     (b6_r_b[2]),
-        .b6_r2_b_not (b6_r_b_not[2]),
-        .b6_r3_b     (b6_r_b[3]),
-        .b6_r3_b_not (b6_r_b_not[3]),
-        .b6_r4_b     (b6_r_b[4]),
-        .b6_r4_b_not (b6_r_b_not[4]),
-        .b6_r5_b     (b6_r_b[5]),
-        .b6_r5_b_not (b6_r_b_not[5]),
-        .b6_r6_b     (b6_r_b[6]),
-        .b6_r6_b_not (b6_r_b_not[6]),
-        .b6_r7_b     (b6_r_b[7]),
-        .b6_r7_b_not (b6_r_b_not[7]),
-        
-        // Connect b7_r(m)_b signals to output
-        .b7_r0_b     (b7_r_b[0]),
-        .b7_r0_b_not (b7_r_b_not[0]),
-        .b7_r1_b     (b7_r_b[1]),
-        .b7_r1_b_not (b7_r_b_not[1]),
-        .b7_r2_b     (b7_r_b[2]),
-        .b7_r2_b_not (b7_r_b_not[2]),
-        .b7_r3_b     (b7_r_b[3]),
-        .b7_r3_b_not (b7_r_b_not[3]),
-        .b7_r4_b     (b7_r_b[4]),
-        .b7_r4_b_not (b7_r_b_not[4]),
-        .b7_r5_b     (b7_r_b[5]),
-        .b7_r5_b_not (b7_r_b_not[5]),
-        .b7_r6_b     (b7_r_b[6]),
-        .b7_r6_b_not (b7_r_b_not[6]),
-        .b7_r7_b     (b7_r_b[7]),
-        .b7_r7_b_not (b7_r_b_not[7]),
-        
-        // Connect x(i)_c0_b input signals
-        .x0_c0_b     (x_c0_b[0]),
-        .x0_c0_b_not (x_c0_b_not[0]),
-        .x1_c0_b     (x_c0_b[1]),
-        .x1_c0_b_not (x_c0_b_not[1]),
-        .x2_c0_b     (x_c0_b[2]),
-        .x2_c0_b_not (x_c0_b_not[2]),
-        .x3_c0_b     (x_c0_b[3]),
-        .x3_c0_b_not (x_c0_b_not[3]),
-        .x4_c0_b     (x_c0_b[4]),
-        .x4_c0_b_not (x_c0_b_not[4]),
-        .x5_c0_b     (x_c0_b[5]),
-        .x5_c0_b_not (x_c0_b_not[5]),
-        .x6_c0_b     (x_c0_b[6]),
-        .x6_c0_b_not (x_c0_b_not[6])
+    // Connect b0_r(m)_b signals to output
+    .b0_r1_b     (b0_r_b[0]),
+    .b0_r1_b_not (b0_r_b_not[0]),
+    .b0_r2_b     (b0_r_b[1]),
+    .b0_r2_b_not (b0_r_b_not[1]),
+    .b0_r3_b     (b0_r_b[2]),
+    .b0_r3_b_not (b0_r_b_not[2]),
+    .b0_r4_b     (b0_r_b[3]),
+    .b0_r4_b_not (b0_r_b_not[3]),
+    .b0_r5_b     (b0_r_b[4]),
+    .b0_r5_b_not (b0_r_b_not[4]),
+    .b0_r6_b     (b0_r_b[5]),
+    .b0_r6_b_not (b0_r_b_not[5]),
+    .b0_r7_b     (b0_r_b[6]),
+    .b0_r7_b_not (b0_r_b_not[6]),
+    .x0_a7_b     (b0_r_b[7]),
+    .x0_a7_b_not (b0_r_b_not[7]),
+    
+    // Connect b2_r(m)_b signals to output
+    .b2_r0_b     (b2_r_b[0]),
+    .b2_r0_b_not (b2_r_b_not[0]),
+    .b2_r1_b     (b2_r_b[1]),
+    .b2_r1_b_not (b2_r_b_not[1]),
+    .b2_r2_b     (b2_r_b[2]),
+    .b2_r2_b_not (b2_r_b_not[2]),
+    .b2_r3_b     (b2_r_b[3]),
+    .b2_r3_b_not (b2_r_b_not[3]),
+    .b2_r4_b     (b2_r_b[4]),
+    .b2_r4_b_not (b2_r_b_not[4]),
+    .b2_r5_b     (b2_r_b[5]),
+    .b2_r5_b_not (b2_r_b_not[5]),
+    .b2_r6_b     (b2_r_b[6]),
+    .b2_r6_b_not (b2_r_b_not[6]),
+    .b2_r7_b     (b2_r_b[7]),
+    .b2_r7_b_not (b2_r_b_not[7]),
+    
+    // Connect b3_r(m)_b signals to output
+    .b3_r0_b     (b3_r_b[0]),
+    .b3_r0_b_not (b3_r_b_not[0]),
+    .b3_r1_b     (b3_r_b[1]),
+    .b3_r1_b_not (b3_r_b_not[1]),
+    .b3_r2_b     (b3_r_b[2]),
+    .b3_r2_b_not (b3_r_b_not[2]),
+    .b3_r3_b     (b3_r_b[3]),
+    .b3_r3_b_not (b3_r_b_not[3]),
+    .b3_r4_b     (b3_r_b[4]),
+    .b3_r4_b_not (b3_r_b_not[4]),
+    .b3_r5_b     (b3_r_b[5]),
+    .b3_r5_b_not (b3_r_b_not[5]),
+    .b3_r6_b     (b3_r_b[6]),
+    .b3_r6_b_not (b3_r_b_not[6]),
+    .b3_r7_b     (b3_r_b[7]),
+    .b3_r7_b_not (b3_r_b_not[7]),
+    
+    // Connect b4_r(m)_b signals to output
+    .b4_r0_b     (b4_r_b[0]),
+    .b4_r0_b_not (b4_r_b_not[0]),
+    .b4_r1_b     (b4_r_b[1]),
+    .b4_r1_b_not (b4_r_b_not[1]),
+    .b4_r2_b     (b4_r_b[2]),
+    .b4_r2_b_not (b4_r_b_not[2]),
+    .b4_r3_b     (b4_r_b[3]),
+    .b4_r3_b_not (b4_r_b_not[3]),
+    .b4_r4_b     (b4_r_b[4]),
+    .b4_r4_b_not (b4_r_b_not[4]),
+    .b4_r5_b     (b4_r_b[5]),
+    .b4_r5_b_not (b4_r_b_not[5]),
+    .b4_r6_b     (b4_r_b[6]),
+    .b4_r6_b_not (b4_r_b_not[6]),
+    .b4_r7_b     (b4_r_b[7]),
+    .b4_r7_b_not (b4_r_b_not[7]),
+    
+    // Connect b5_r(m)_b signals to output
+    .b5_r0_b     (b5_r_b[0]),
+    .b5_r0_b_not (b5_r_b_not[0]),
+    .b5_r1_b     (b5_r_b[1]),
+    .b5_r1_b_not (b5_r_b_not[1]),
+    .b5_r2_b     (b5_r_b[2]),
+    .b5_r2_b_not (b5_r_b_not[2]),
+    .b5_r3_b     (b5_r_b[3]),
+    .b5_r3_b_not (b5_r_b_not[3]),
+    .b5_r4_b     (b5_r_b[4]),
+    .b5_r4_b_not (b5_r_b_not[4]),
+    .b5_r5_b     (b5_r_b[5]),
+    .b5_r5_b_not (b5_r_b_not[5]),
+    .b5_r6_b     (b5_r_b[6]),
+    .b5_r6_b_not (b5_r_b_not[6]),
+    .b5_r7_b     (b5_r_b[7]),
+    .b5_r7_b_not (b5_r_b_not[7]),
+    
+    // Connect b6_r(m)_b signals to output
+    .b6_r0_b     (b6_r_b[0]),
+    .b6_r0_b_not (b6_r_b_not[0]),
+    .b6_r1_b     (b6_r_b[1]),
+    .b6_r1_b_not (b6_r_b_not[1]),
+    .b6_r2_b     (b6_r_b[2]),
+    .b6_r2_b_not (b6_r_b_not[2]),
+    .b6_r3_b     (b6_r_b[3]),
+    .b6_r3_b_not (b6_r_b_not[3]),
+    .b6_r4_b     (b6_r_b[4]),
+    .b6_r4_b_not (b6_r_b_not[4]),
+    .b6_r5_b     (b6_r_b[5]),
+    .b6_r5_b_not (b6_r_b_not[5]),
+    .b6_r6_b     (b6_r_b[6]),
+    .b6_r6_b_not (b6_r_b_not[6]),
+    .b6_r7_b     (b6_r_b[7]),
+    .b6_r7_b_not (b6_r_b_not[7]),
+    
+    // Connect b7_r(m)_b signals to output
+    .b7_r0_b     (b7_r_b[0]),
+    .b7_r0_b_not (b7_r_b_not[0]),
+    .b7_r1_b     (b7_r_b[1]),
+    .b7_r1_b_not (b7_r_b_not[1]),
+    .b7_r2_b     (b7_r_b[2]),
+    .b7_r2_b_not (b7_r_b_not[2]),
+    .b7_r3_b     (b7_r_b[3]),
+    .b7_r3_b_not (b7_r_b_not[3]),
+    .b7_r4_b     (b7_r_b[4]),
+    .b7_r4_b_not (b7_r_b_not[4]),
+    .b7_r5_b     (b7_r_b[5]),
+    .b7_r5_b_not (b7_r_b_not[5]),
+    .b7_r6_b     (b7_r_b[6]),
+    .b7_r6_b_not (b7_r_b_not[6]),
+    .b7_r7_b     (b7_r_b[7]),
+    .b7_r7_b_not (b7_r_b_not[7]),
+    
+    // Connect x(i)_c0_b input signals
+    .x0_c0_b     (x_c0_b[0]),
+    .x0_c0_b_not (x_c0_b_not[0]),
+    .x1_c0_b     (x_c0_b[1]),
+    .x1_c0_b_not (x_c0_b_not[1]),
+    .x2_c0_b     (x_c0_b[2]),
+    .x2_c0_b_not (x_c0_b_not[2]),
+    .x3_c0_b     (x_c0_b[3]),
+    .x3_c0_b_not (x_c0_b_not[3]),
+    .x4_c0_b     (x_c0_b[4]),
+    .x4_c0_b_not (x_c0_b_not[4]),
+    .x5_c0_b     (x_c0_b[5]),
+    .x5_c0_b_not (x_c0_b_not[5]),
+    .x6_c0_b     (x_c0_b[6]),
+    .x6_c0_b_not (x_c0_b_not[6]),
+    .x7_c0_b     (x_c0_b[7]),
+    .x7_c0_b_not (x_c0_b_not[7])
     );
 
 endmodule
