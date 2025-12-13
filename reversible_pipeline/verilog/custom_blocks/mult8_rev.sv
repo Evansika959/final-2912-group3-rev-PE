@@ -245,8 +245,8 @@ module mult8b_rev_wrapped (
     wire [7:0] tie_lo_carry_b7;
     wire [7:0] tie_hi_carry_b7;
 
-    wire [7:0] tie_lo_x_b0_f;
-    wire [7:0] tie_hi_x_b0_f;
+    wire [6:0] tie_lo_x_b0_f;
+    wire [6:0] tie_hi_x_b0_f;
     wire [7:0] tie_lo_x_c0_f;
     wire [7:0] tie_hi_x_c0_f;
     wire       tie_lo_x0_a7_f;
@@ -777,8 +777,6 @@ module mult8b_rev_wrapped (
     .x5_b0_f_not (tie_hi_x_b0_f[5]),
     .x6_b0_f     (tie_lo_x_b0_f[6]),
     .x6_b0_f_not (tie_hi_x_b0_f[6]),
-    .x7_b0_f     (tie_lo_x_b0_f[7]),
-    .x7_b0_f_not (tie_hi_x_b0_f[7]),
         
     // Set x(i)_c0_f to 0 and x(i)_c0_f_not to 1
     .x0_c0_f     (tie_lo_x_c0_f[0]),
